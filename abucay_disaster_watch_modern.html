@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abucay National High School — Disaster Watch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #eef3f7;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #004AAD, #007BFF);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+        }
+        header h1 { font-size: 2.5em; font-weight: 700; }
+        header p { font-size: 1.1em; margin-top: 8px; opacity: 0.9; }
+
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            transition: 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+        }
+
+        h2 { color: #004AAD; font-size: 1.7em; margin-bottom: 14px; }
+
+        .weather-info {
+            font-size: 1.2em;
+            line-height: 1.6em;
+        }
+
+        button {
+            background: #004AAD;
+            border: none;
+            padding: 12px 20px;
+            color: white;
+            font-size: 1em;
+            border-radius: 10px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover { background: #0066E3; }
+
+        .alert {
+            padding: 18px;
+            border-radius: 14px;
+            color: white;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        .alert .icon {
+            font-size: 1.6em;
+            margin-right: 12px;
+        }
+        .typhoon { background: #0057FF; }
+        .fire { background: #FF2E2E; }
+        .rain { background: #00B8D4; }
+        .none { background: #6E6E6E; }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #004AAD;
+            color: white;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Abucay National High School</h1>
+    <p>Advanced Disaster Watch System — Typhoon • Fire • Heavy Rain Alerts</p>
+</header>
+
+<main>
+
+    <div class="card">
+        <h2>Current Weather</h2>
+        <p id="weather-info" class="weather-info">Temperature: -- °C | Humidity: --% | Condition: --</p>
+        <button onclick="updateWeather()">Refresh Weather</button>
+    </div>
+
+    <div class="card">
+        <h2>Disaster Alerts</h2>
+        <div id="alert-list">
+            <div class="alert none"><span class="icon">✅</span>No current alerts</div>
+        </div>
+        <button onclick="updateAlerts()">Refresh Alerts</button>
+    </div>
+
+</main>
+
+<footer>
+    © 2025 Abucay National High School — Disaster Watch
+</footer>
+
+<script>
+    const weatherData = [
+        { temp: 30, humidity: 70, condition: 'Sunny' },
+        { temp: 28, humidity: 82, condition: 'Heavy Rain' },
+        { temp: 29, humidity: 76, condition: 'Cloudy' },
+        { temp: 26, humidity: 90, condition: 'Thunderstorm' }
+    ];
+
+    const alertsData = [
+        { type: 'typhoon', text: 'Typhoon Alert: Strong winds expected near Abucay.', icon: '🌪️' },
+        { type: 'fire', text: 'Fire Alert: Fire reported near the school vicinity.', icon: '🔥' },
+        { type: 'rain', text: 'Heavy Rain Alert: Flooding possible in low-lying areas.', icon: '🌧️' },
+        { type: 'none', text: 'No alerts at the moment.', icon: '✅' }
+    ];
+
+    function updateWeather() {
+        const index = Math.floor(Math.random() * weatherData.length);
+        const w = weatherData[index];
+        document.getElementById('weather-info').textContent =
+            `Temperature: ${w.temp}°C | Humidity: ${w.humidity}% | Condition: ${w.condition}`;
+    }
+
+    function updateAlerts() {
+        const index = Math.floor(Math.random() * alertsData.length);
+        const alert = alertsData[index];
+
+        const container = document.getElementById('alert-list');
+        container.innerHTML = "";
+
+        const div = document.createElement('div');
+        div.classList.add('alert', alert.type);
+        div.innerHTML = `<span class="icon">${alert.icon}</span> ${alert.text}`;
+        container.appendChild(div);
+    }
+
+    updateWeather();
+    updateAlerts();
+</script>
+
+</body>
+</html>
